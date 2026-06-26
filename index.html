@@ -22,7 +22,7 @@
     --r:14px;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:clip}
   body{
     margin:0;font-family:"Archivo",system-ui,Arial,sans-serif;color:var(--ink);
     background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;
@@ -216,6 +216,24 @@
     .hero__in{padding:72px 0 72px}
     .hdr__cta .btn{display:none}
     .two{grid-template-columns:1fr}
+  }
+  /* ---- Mobile: co-brand lockup deve stare nel viewport ---- */
+  @media (max-width:560px){
+    .hdr__in{padding:12px 18px}
+    .cobrand{gap:9px}
+    .cobrand img.maurelli,
+    .ft .cobrand img.maurelli{height:22px}
+    .cobrand img.dometic,
+    .ft .cobrand img.dometic{height:11px}
+    .cobrand .sep{height:20px}
+    .cobrand .kicker{font-size:.52rem;letter-spacing:.1em}
+    .wrap{padding:0 18px}
+    section{padding:60px 0}
+    .hero__sub{font-size:1.04rem}
+    .hero__strip b{font-size:1.22rem}
+    .hero__strip span{font-size:.72rem}
+    .ft__in{gap:18px}
+    .ft .cobrand .sep{height:20px}
   }
   @media (prefers-reduced-motion:reduce){
     *{scroll-behavior:auto}
