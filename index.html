@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pannelli solari per camion e flotte — Dometic Go Power! FLEX | Maurelli</title>
-<meta name="description" content="Pannelli solari Dometic Go Power! FLEX per cabina e semirimorchio, distribuiti da Maurelli. Meno fermi per batteria scarica, meno diesel, batterie che durano anni. ROI in 6–12 mesi.">
+<title>Pannelli solari per camion, autobus e flotte | Maurelli</title>
+<meta name="description" content="Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e dimensiona il kit giusto per il tuo modello di veicolo: meno fermi per batteria scarica, meno diesel, batterie che durano anni. ROI in 6–12 mesi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -49,7 +49,6 @@
   .hdr__in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;max-width:var(--maxw);margin:0 auto}
   .cobrand{display:flex;align-items:center;gap:14px}
   .cobrand img.maurelli{height:30px;width:auto}
-  .cobrand img.dometic{height:15px;width:auto}
   .cobrand .sep{width:1px;height:26px;background:var(--linea)}
   .cobrand .kicker{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
   .hdr .btn{padding:11px 20px;font-size:.92rem}
@@ -165,7 +164,7 @@
   .config b{color:var(--sole)}
 
   /* ---------- Kit offerta ---------- */
-  .kits{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .kits{margin-top:46px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .kit{border:2px solid var(--linea);border-radius:var(--r);padding:32px;display:flex;flex-direction:column}
   .kit:hover{border-color:var(--blu)}
   .kit h3{font-size:1.5rem}
@@ -204,7 +203,6 @@
   .ft{background:var(--ink);color:#cdd6df;padding:48px 0}
   .ft__in{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
   .ft .cobrand img.maurelli{height:30px;filter:brightness(0) invert(1)}
-  .ft .cobrand img.dometic{height:15px;filter:brightness(0) invert(1)}
   .ft small{color:#7e8a96;font-size:.8rem}
 
   /* reveal */
@@ -223,10 +221,6 @@
     .cobrand{gap:9px}
     .cobrand img.maurelli,
     .ft .cobrand img.maurelli{height:22px}
-    .cobrand img.dometic,
-    .ft .cobrand img.dometic{height:11px}
-    .cobrand .sep{height:20px}
-    .cobrand .kicker{font-size:.52rem;letter-spacing:.1em}
     .wrap{padding:0 18px}
     section{padding:60px 0}
     .hero__sub{font-size:1.04rem}
@@ -256,11 +250,6 @@
   <div class="hdr__in">
     <div class="cobrand">
       <img class="maurelli" src="assets/maurelli-logo.svg" alt="Maurelli">
-      <span class="sep"></span>
-      <div>
-        <div class="kicker">Distribuisce</div>
-        <img class="dometic" src="assets/dometic-logo.svg" alt="Dometic">
-      </div>
     </div>
     <nav class="hdr__cta">
       <a class="btn btn--blu" href="#contatti">Richiedi una consulenza</a>
@@ -271,8 +260,8 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero__media" id="heroSlider">
-    <div class="hero__slide is-active"><img src="assets/hero-1.jpg" alt="Camion con pannelli solari Dometic in viaggio sotto il sole"></div>
-    <div class="hero__slide"><img src="assets/hero-2.jpg" alt="Dettaglio dei pannelli solari Dometic Go Power! FLEX sul tetto"></div>
+    <div class="hero__slide is-active"><img src="assets/hero-1.jpg" alt="Camion con pannelli solari in viaggio sotto il sole"></div>
+    <div class="hero__slide"><img src="assets/hero-2.jpg" alt="Dettaglio dei pannelli solari flessibili sul tetto del mezzo"></div>
     <div class="hero__slide"><img src="assets/hero-3.jpg" alt="Cruscotto con monitor di carica della batteria"></div>
     <div class="hero__dots" role="tablist" aria-label="Immagini">
       <button class="is-active" aria-label="Immagine 1"></button>
@@ -283,9 +272,9 @@
   <span class="sun"></span>
   <div class="wrap">
     <div class="hero__in">
-      <div class="eyebrow" style="color:var(--sole)">Fotovoltaico per veicoli commerciali · Dometic Go Power! FLEX</div>
+      <div class="eyebrow" style="color:var(--sole)">Fotovoltaico per veicoli commerciali e flotte</div>
       <h1 class="display">Il sole ricarica la tua flotta.<br><em>Tu continui a lavorare.</em></h1>
-      <p class="hero__sub">Pannelli solari per cabina e semirimorchio. Maurelli dimensiona il kit giusto per la tua flotta e può garantire supporto per l'installazione con squadre tecniche dedicate: meno fermi, meno diesel, batterie che durano anni.</p>
+      <p class="hero__sub">Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e dimensiona il kit giusto per il tuo modello di veicolo: meno fermi, meno diesel, batterie che durano anni.</p>
       <div class="hero__cta">
         <a class="btn btn--sun" href="#contatti">Richiedi una consulenza →</a>
         <a class="btn btn--ghost" href="#kit">Scopri i kit</a>
@@ -296,7 +285,7 @@
     <div class="hero__strip">
       <div><b>6–12 mesi</b><span>Ritorno investimento</span></div>
       <div><b>fino a 98%</b><span>Efficienza regolatore MPPT</span></div>
-      <div><b>5 anni</b><span>Garanzia Dometic Go Power!</span></div>
+      <div><b>5 anni</b><span>Garanzia sui componenti</span></div>
     </div>
   </div>
 </section>
@@ -319,7 +308,7 @@
           <div class="track"><div class="fill bad"></div></div>
         </div>
         <div class="bar" style="margin-top:14px">
-          <small><span>Con Go Power! FLEX</span><span>4%</span></small>
+          <small><span>Con il fotovoltaico</span><span>4%</span></small>
           <div class="track"><div class="fill good"></div></div>
         </div>
         <p>Le batterie passano circa il 20% della vita in bassa tensione: degrado continuo e più fermi. Con il fotovoltaico scende al 4%.</p>
@@ -349,7 +338,7 @@
     <div class="sec-head">
       <div class="eyebrow">La soluzione</div>
       <h2 class="display" style="margin-top:12px">Un pannello sul tetto, batterie sotto controllo.</h2>
-      <p class="lead">Installiamo sistemi solari su cabina e semirimorchio che mantengono cariche le batterie di servizio senza tenere il motore al minimo. Tu continui a lavorare, mentre il sole ricarica la tua flotta.</p>
+      <p class="lead">Sistemi solari per cabina, semirimorchio e autobus che mantengono cariche le batterie di servizio senza tenere il motore al minimo. Tu continui a lavorare, mentre il sole ricarica la tua flotta.</p>
     </div>
     <div class="feat">
       <div class="card reveal">
@@ -365,7 +354,7 @@
       <div class="card reveal">
         <div class="ic">🔌</div>
         <h3>Plug-and-play certificato</h3>
-        <p>Cablaggio coordinato e connettori impermeabili: installazione rapida. 5 anni di garanzia su tutti i prodotti Go Power!.</p>
+        <p>Cablaggio coordinato e connettori impermeabili, pronti all'uso. 5 anni di garanzia su tutti i componenti.</p>
       </div>
     </div>
   </div>
@@ -380,9 +369,9 @@
     </div>
     <div class="panels">
       <div class="panel reveal">
-        <img src="assets/flex-55.png" alt="Pannello solare Dometic Go Power! FLEX 55W">
+        <img src="assets/flex-55.png" alt="Pannello solare flessibile da 55 W">
         <div>
-          <div class="code">GP-FLEX-55</div>
+          <div class="code">Pannello Solare 55 W</div>
           <ul>
             <li>Potenza 55 W · celle 21%</li>
             <li>1140 × 286 × 3 mm · 0,72 kg</li>
@@ -391,9 +380,9 @@
         </div>
       </div>
       <div class="panel reveal">
-        <img src="assets/flex-110.png" alt="Pannello solare Dometic Go Power! FLEX 110W">
+        <img src="assets/flex-110.png" alt="Pannello solare flessibile da 110 W">
         <div>
-          <div class="code">GP-FLEX-110</div>
+          <div class="code">Pannello Solare 110 W</div>
           <ul>
             <li>Potenza 110 W · celle 21%</li>
             <li>1134 × 544 × 3 mm · 1,35 kg</li>
@@ -403,7 +392,7 @@
       </div>
     </div>
     <div class="config">
-      <span>Configurabili in base al veicolo: <b>da 110 W fino a 330 W</b>, con regolatore MPPT abbinato.</span>
+      <span>Configurabili in base al veicolo: <b>da 110 W fino a 660 W</b>, con regolatore MPPT abbinato.</span>
     </div>
   </div>
 </section>
@@ -414,7 +403,7 @@
     <div class="sec-head">
       <div class="eyebrow">Sistemi completi</div>
       <h2 class="display" style="margin-top:12px">Scegli il kit per il tuo veicolo.</h2>
-      <p class="lead">Sistemi modulari e completi: modulo, regolatore di carica, imbracatura e accessori di installazione.</p>
+      <p class="lead">Sistemi modulari e completi: modulo, regolatore di carica MPPT, imbracatura e accessori di collegamento.</p>
     </div>
     <div class="kits">
       <div class="kit reveal">
@@ -427,6 +416,11 @@
         <p class="desc">Per sponde idrauliche, martinetti elettrici e impianti del rimorchio che drenano la batteria. La potenza dipende dal veicolo.</p>
         <a class="btn btn--sun" href="#contatti">Richiedi il Kit Semirimorchio →</a>
       </div>
+      <div class="kit reveal">
+        <h3>Kit Autobus</h3>
+        <p class="desc">Per climatizzazione, servizi passeggeri e impianti di bordo dei bus, con potenza totale fino a <b>660&nbsp;Wp</b>.</p>
+        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Autobus →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -434,12 +428,13 @@
 <!-- NUMERI -->
 <section class="numeri">
   <div class="wrap">
-    <div class="eyebrow" style="color:var(--sole)">Dometic Go Power!</div>
+    <div class="eyebrow" style="color:var(--sole)">Tecnologia di primo livello</div>
     <h2 class="display" style="margin-top:12px">Esperienza che si misura.</h2>
+    <p class="lead" style="margin:16px auto 0;color:#bcccdd">Selezioniamo per la tua flotta la tecnologia di uno dei principali produttori mondiali di fotovoltaico per veicoli. Numeri che parlano da soli.</p>
     <div class="grid">
       <div><b>26</b><span>anni nelle energie alternative</span></div>
-      <div><b>1.000.000+</b><span>pannelli venduti</span></div>
-      <div><b>300.000+</b><span>installazioni mobili</span></div>
+      <div><b>1.000.000+</b><span>pannelli prodotti</span></div>
+      <div><b>300.000+</b><span>veicoli equipaggiati</span></div>
     </div>
   </div>
 </section>
@@ -451,11 +446,11 @@
       <div class="sidekick">
         <div class="eyebrow">Parla con Maurelli</div>
         <h2 class="display" style="margin-top:12px">Quanta potenza serve alla tua flotta?</h2>
-        <p class="lead">Dicci quanti veicoli e che tipo di impianto: dimensioniamo il kit giusto, con prezzo e tempi di installazione.</p>
+        <p class="lead">Dicci quanti veicoli e quale modello: analizziamo i consumi e dimensioniamo il kit giusto per il tuo mezzo.</p>
         <ul>
-          <li><span>01</span> Analisi dei consumi e del tipo di veicolo</li>
-          <li><span>02</span> Dimensionamento del kit (110–330 W)</li>
-          <li><span>03</span> Preventivo e tempi di installazione</li>
+          <li><span>01</span> Analisi dei consumi e del modello di veicolo</li>
+          <li><span>02</span> Dimensionamento del kit (110–660 W)</li>
+          <li><span>03</span> Preventivo su misura entro 24 ore</li>
         </ul>
       </div>
       <div class="form-card">
@@ -472,7 +467,19 @@
             <div class="field"><label for="veicoli">Numero di veicoli</label>
               <select id="veicoli"><option>1–5</option><option>6–20</option><option>21–50</option><option>50+</option></select></div>
             <div class="field"><label for="tipo">Tipo di veicolo</label>
-              <select id="tipo"><option>Camion</option><option>Furgone</option><option>Semirimorchio</option><option>Altro</option></select></div>
+              <select id="tipo"><option value="">Seleziona…</option><option>Camion</option><option>Autobus</option><option>Semirimorchio</option><option>Altro</option></select></div>
+          </div>
+          <div class="field" id="modelloField" hidden><label for="modello">Modello del camion</label>
+            <select id="modello">
+              <option value="">Seleziona il modello…</option>
+              <option>DAF XG</option>
+              <option>Ford F-Max</option>
+              <option>Iveco S-Way</option>
+              <option>MAN TGX</option>
+              <option>Scania R Topline</option>
+              <option>Volvo FH</option>
+              <option>Altro modello</option>
+            </select>
           </div>
           <div class="field"><label for="note">Note (opzionale)</label><textarea id="note" rows="3"></textarea></div>
           <label class="consent"><input type="checkbox" required> Acconsento al trattamento dei dati personali ai sensi del D.Lgs. 196/2003 e del GDPR 679/2016. *</label>
@@ -499,7 +506,7 @@
     <div class="faq__list">
       <details class="faq__item reveal" open>
         <summary>Quanto costa un impianto?</summary>
-        <div class="a">Dipende dal veicolo e dalla configurazione (da 110 W fino a 330 W). Per questo non diamo un listino fisso: dicci quanti mezzi e che tipo, e ti prepariamo un <b>preventivo su misura entro 24 ore lavorative</b>.</div>
+        <div class="a">Dipende dal veicolo e dalla configurazione (da 110 W fino a 660 W). Per questo non diamo un listino fisso: dicci quanti mezzi e quale modello, e ti prepariamo un <b>preventivo su misura entro 24 ore lavorative</b>.</div>
       </details>
 
       <details class="faq__item reveal">
@@ -508,8 +515,13 @@
       </details>
 
       <details class="faq__item reveal">
-        <summary>Si rovina il tetto? Come avviene l'installazione?</summary>
-        <div class="a">No: i pannelli sono <b>autoadesivi</b>, spessi solo 3 mm e flessibili fino a 30°, con cablaggio plug-and-play. L'installazione è rapida e, se ti serve, è <b>supportata dalle nostre squadre tecniche dedicate</b>.</div>
+        <summary>Che cosa fa esattamente Maurelli?</summary>
+        <div class="a">Maurelli cura la <b>parte tecnica</b>: analizza i consumi di bordo e <b>dimensiona il kit giusto in base al tuo modello di veicolo</b>. Ti seguiamo dal dimensionamento al preventivo su misura e al supporto tecnico.</div>
+      </details>
+
+      <details class="faq__item reveal">
+        <summary>I pannelli sono adatti al tetto del mio mezzo?</summary>
+        <div class="a">Sì: sono <b>autoadesivi</b>, spessi solo 3 mm e flessibili fino a 30°, con cablaggio plug-and-play. Si adattano al profilo di <b>cabina, semirimorchio e autobus</b>.</div>
       </details>
 
       <details class="faq__item reveal">
@@ -524,17 +536,17 @@
 
       <details class="faq__item reveal">
         <summary>Quanta potenza serve alla mia flotta?</summary>
-        <div class="a">Dipende dai consumi di bordo (sponde idrauliche, climatizzazione, impianti del rimorchio). <b>La dimensioniamo noi</b>: bastano il numero di veicoli e il tipo di mezzo per indicarti la configurazione giusta.</div>
+        <div class="a">Dipende dai consumi di bordo (sponde idrauliche, climatizzazione, servizi passeggeri, impianti del rimorchio). <b>La dimensioniamo noi</b>: bastano il numero di veicoli e il modello di mezzo per indicarti la configurazione giusta.</div>
       </details>
 
       <details class="faq__item reveal">
-        <summary>Meglio il Kit Cabina o il Kit Semirimorchio?</summary>
-        <div class="a"><b>Cabina</b> per il comfort dell'autista e i servizi di bordo senza scaricare la batteria di avviamento; <b>Semirimorchio</b> per sponde idrauliche, martinetti elettrici e impianti del rimorchio. Se hai dubbi, lo valutiamo insieme.</div>
+        <summary>Kit Cabina, Semirimorchio o Autobus?</summary>
+        <div class="a"><b>Cabina</b> per il comfort dell'autista e i servizi di bordo; <b>Semirimorchio</b> per sponde idrauliche, martinetti elettrici e impianti del rimorchio; <b>Autobus</b> per climatizzazione e servizi passeggeri, fino a 660 Wp. Se hai dubbi, lo valutiamo insieme.</div>
       </details>
 
       <details class="faq__item reveal">
-        <summary>Che garanzia hanno i prodotti?</summary>
-        <div class="a">Tutti i prodotti Dometic Go Power! hanno <b>5 anni di garanzia</b>. Maurelli ne è distributore e ti segue dal dimensionamento al supporto post-vendita.</div>
+        <summary>Che garanzia hanno i componenti?</summary>
+        <div class="a">Tutti i componenti hanno <b>5 anni di garanzia</b>. Maurelli ti segue dal dimensionamento al supporto tecnico.</div>
       </details>
     </div>
 
@@ -547,13 +559,8 @@
   <div class="wrap ft__in">
     <div class="cobrand">
       <img class="maurelli" src="assets/maurelli-logo.svg" alt="Maurelli">
-      <span class="sep" style="background:rgba(255,255,255,.25)"></span>
-      <div>
-        <div class="kicker" style="color:#8a96a2">Distribuisce</div>
-        <img class="dometic" src="assets/dometic-logo.svg" alt="Dometic">
-      </div>
     </div>
-    <small>Maurelli distribuisce i prodotti Dometic Go Power!. © Maurelli Group — Bozza landing page (immagini generate con Intelligenza Artificiale).</small>
+    <small>© Maurelli Group — Bozza landing page (immagini generate con Intelligenza Artificiale).</small>
   </div>
 </footer>
 
@@ -561,6 +568,21 @@
   // reveal on scroll
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // mostra il modello del camion solo quando "Tipo di veicolo" = Camion
+  (function(){
+    const tipo=document.getElementById('tipo');
+    const mf=document.getElementById('modelloField');
+    const modello=document.getElementById('modello');
+    if(!tipo||!mf) return;
+    function sync(){
+      const isCamion=tipo.value==='Camion';
+      mf.hidden=!isCamion;
+      if(!isCamion && modello) modello.value='';
+    }
+    tipo.addEventListener('change',sync);
+    sync();
+  })();
 
   // hero slider
   (function(){
