@@ -190,7 +190,10 @@
     border-radius:10px;font:inherit;background:#fff}
   .field input:focus,.field select:focus,.field textarea:focus{outline:3px solid rgba(0,61,124,.25);border-color:var(--blu)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .consents{display:flex;flex-direction:column;gap:12px;margin-top:6px}
   .consent{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--muted)}
+  .consent input{width:auto;margin-top:3px;flex:none}
+  .consent a{color:var(--blu);font-weight:700;text-decoration:underline}
   .form-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
   .note{font-size:.82rem;color:var(--muted)}
   .wa{display:inline-flex;align-items:center;gap:.5em;font-weight:800;color:#128C4A;text-decoration:none}
@@ -274,7 +277,7 @@
     <div class="hero__in">
       <div class="eyebrow" style="color:var(--sole)">Fotovoltaico per veicoli commerciali e flotte</div>
       <h1 class="display">Il sole ricarica la tua flotta.<br><em>Tu continui a lavorare.</em></h1>
-      <p class="hero__sub">Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e dimensiona il kit giusto per il tuo modello di veicolo: meno fermi, meno diesel, batterie che durano anni.</p>
+      <p class="hero__sub">Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e configura il kit giusto per il tuo modello di veicolo: meno fermi, meno diesel, batterie che durano anni.</p>
       <div class="hero__cta">
         <a class="btn btn--sun" href="#contatti">Richiedi una consulenza →</a>
         <a class="btn btn--ghost" href="#kit">Scopri i kit</a>
@@ -371,9 +374,9 @@
       <div class="panel reveal">
         <img src="assets/flex-55.png" alt="Pannello solare flessibile da 55 W">
         <div>
-          <div class="code">Pannello Solare 55 W</div>
+          <div class="code">Pannello Solare 55 Wp</div>
           <ul>
-            <li>Potenza 55 W · celle 21%</li>
+            <li>Potenza 55 Wp · celle 21%</li>
             <li>1140 × 286 × 3 mm · 0,72 kg</li>
             <li>Autoadesivo · flessibile fino a 30°</li>
           </ul>
@@ -382,9 +385,9 @@
       <div class="panel reveal">
         <img src="assets/flex-110.png" alt="Pannello solare flessibile da 110 W">
         <div>
-          <div class="code">Pannello Solare 110 W</div>
+          <div class="code">Pannello Solare 110 Wp</div>
           <ul>
-            <li>Potenza 110 W · celle 21%</li>
+            <li>Potenza 110 Wp · celle 21%</li>
             <li>1134 × 544 × 3 mm · 1,35 kg</li>
             <li>Autoadesivo · flessibile fino a 30°</li>
           </ul>
@@ -392,7 +395,7 @@
       </div>
     </div>
     <div class="config">
-      <span>Configurabili in base al veicolo: <b>da 110 W fino a 660 W</b>, con regolatore MPPT abbinato.</span>
+      <span>Configurabili in base al veicolo: <b>da 110 Wp fino a 330 Wp</b>, con regolatore MPPT abbinato.</span>
     </div>
   </div>
 </section>
@@ -449,31 +452,35 @@
         <p class="lead">Dicci quanti veicoli e quale modello: analizziamo i consumi e dimensioniamo il kit giusto per il tuo mezzo.</p>
         <ul>
           <li><span>01</span> Analisi dei consumi e del modello di veicolo</li>
-          <li><span>02</span> Dimensionamento del kit (110–660 W)</li>
+          <li><span>02</span> Dimensionamento del kit (110–660 Wp)</li>
           <li><span>03</span> Preventivo su misura entro 24 ore</li>
         </ul>
       </div>
       <div class="form-card">
         <form onsubmit="return false">
           <div class="two">
-            <div class="field"><label for="nome">Nome e Cognome *</label><input id="nome" required></div>
-            <div class="field"><label for="azienda">Azienda</label><input id="azienda"></div>
+            <div class="field"><label for="nome">Nome *</label><input id="nome" required></div>
+            <div class="field"><label for="cognome">Cognome *</label><input id="cognome" required></div>
           </div>
           <div class="two">
+            <div class="field"><label for="piva">P.IVA *</label><input id="piva" required></div>
             <div class="field"><label for="tel">Telefono *</label><input id="tel" type="tel" required></div>
-            <div class="field"><label for="email">Email *</label><input id="email" type="email" required></div>
           </div>
           <div class="two">
-            <div class="field"><label for="veicoli">Numero di veicoli</label>
-              <select id="veicoli"><option>1–5</option><option>6–20</option><option>21–50</option><option>50+</option></select></div>
-            <div class="field"><label for="tipo">Tipo di veicolo</label>
-              <select id="tipo"><option value="">Seleziona…</option><option>Camion</option><option>Autobus</option><option>Semirimorchio</option><option>Altro</option></select></div>
+            <div class="field"><label for="email">Email *</label><input id="email" type="email" required></div>
+            <div class="field"><label for="veicoli">Numero di veicoli *</label>
+              <select id="veicoli" required>
+                <option value="">Seleziona…</option>
+                <option>1–5</option><option>6–20</option><option>21–50</option><option>50+</option>
+              </select></div>
           </div>
-          <div class="field" id="modelloField" hidden><label for="modello">Modello del camion</label>
-            <select id="modello">
+          <div class="field"><label for="tipo">Tipo di veicolo *</label>
+            <select id="tipo" required><option value="">Seleziona…</option><option>Camion</option><option>Autobus</option><option>Semirimorchio</option><option>Altro</option></select></div>
+          <div class="field" id="modelloField" hidden><label for="modello">Modello del camion *</label>
+            <select id="modello" required>
               <option value="">Seleziona il modello…</option>
               <option>DAF XG</option>
-              <option>Ford F-Max</option>
+              <option>Ford Trucks F-Max</option>
               <option>Iveco S-Way</option>
               <option>MAN TGX</option>
               <option>Scania R Topline</option>
@@ -482,10 +489,15 @@
             </select>
           </div>
           <div class="field"><label for="note">Note (opzionale)</label><textarea id="note" rows="3"></textarea></div>
-          <label class="consent"><input type="checkbox" required> Acconsento al trattamento dei dati personali ai sensi del D.Lgs. 196/2003 e del GDPR 679/2016. *</label>
+          <div class="consents">
+            <label class="consent"><input type="checkbox" required> Dichiaro di prendere visione dell'<a href="https://maurelli.it/informativa-privacy/" target="_blank" rel="noopener">informativa</a> resa ai sensi degli artt. 13 e ss del GDPR. *</label>
+            <label class="consent"><input type="checkbox"> Dichiaro di voler prestare il mio consenso per le attività finalizzate al Marketing.</label>
+            <label class="consent"><input type="checkbox"> Dichiaro di voler prestare il mio consenso per le attività finalizzate alla cessione dei dati alle aziende del Gruppo Maurelli e società ad essa collegate per scopi commerciali.</label>
+            <label class="consent"><input type="checkbox"> Dichiaro di voler prestare il mio consenso per le attività finalizzate alla profilazione.</label>
+          </div>
           <div class="form-actions" style="margin-top:18px">
             <button class="btn btn--blu" type="submit">Scrivi a un commerciale →</button>
-            <a class="wa" href="#">⊜ Scrivici su WhatsApp →</a>
+            <a class="wa" href="https://wa.me/393472432775?text=*Pannelli%20Solari*%3A%20Dicci%20quanti%20veicoli%20e%20quale%20modello%3A%20analizziamo%20i%20consumi%20e%20dimensioniamo%20il%20kit%20giusto%20per%20il%20tuo%20mezzo.">⊜ Scrivici su WhatsApp →</a>
           </div>
           <p class="note" style="margin-top:12px">Risposta commerciale entro 24 ore lavorative.</p>
         </form>
@@ -506,7 +518,7 @@
     <div class="faq__list">
       <details class="faq__item reveal" open>
         <summary>Quanto costa un impianto?</summary>
-        <div class="a">Dipende dal veicolo e dalla configurazione (da 110 W fino a 660 W). Per questo non diamo un listino fisso: dicci quanti mezzi e quale modello, e ti prepariamo un <b>preventivo su misura entro 24 ore lavorative</b>.</div>
+        <div class="a">Dipende dal veicolo e dalla configurazione (da 110 Wp fino a 660 Wp). Per questo non diamo un listino fisso: dicci quanti mezzi e quale modello, e ti prepariamo un <b>preventivo su misura entro 24 ore lavorative</b>.</div>
       </details>
 
       <details class="faq__item reveal">
@@ -546,11 +558,11 @@
 
       <details class="faq__item reveal">
         <summary>Che garanzia hanno i componenti?</summary>
-        <div class="a">Tutti i componenti hanno <b>5 anni di garanzia</b>. Maurelli ti segue dal dimensionamento al supporto tecnico.</div>
+        <div class="a">Tutti i pannelli hanno <b>5 anni di garanzia</b>. Maurelli ti segue dal dimensionamento al supporto tecnico.</div>
       </details>
     </div>
 
-    <p class="faq__cta">Hai un'altra domanda? <a href="#contatti">Parla con un commerciale Maurelli →</a></p>
+    <p class="faq__cta">Hai un'altra domanda? <a href="#contatti">Parla con un tecnico Maurelli →</a></p>
   </div>
 </section>
 
@@ -560,7 +572,7 @@
     <div class="cobrand">
       <img class="maurelli" src="assets/maurelli-logo.svg" alt="Maurelli">
     </div>
-    <small>© Maurelli Group — Bozza landing page (immagini generate con Intelligenza Artificiale).</small>
+    <small>© Maurelli Group — immagini generate con Intelligenza Artificiale.</small>
   </div>
 </footer>
 
