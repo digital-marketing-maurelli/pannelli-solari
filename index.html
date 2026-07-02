@@ -7,45 +7,73 @@
 <meta name="description" content="Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e dimensiona il kit giusto per il tuo modello di veicolo: meno fermi per batteria scarica, meno diesel, batterie che durano anni. ROI in 6–12 mesi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;100,600;100,700;100,800;100,900;125,800;125,900&display=swap" rel="stylesheet">
 <style>
   :root{
     --blu:#003D7C;        /* Maurelli */
     --blu-scuro:#002850;  /* Gruppo - blu alternativo */
+    --blu-notte:#001B3A;  /* fondo hero più profondo */
     --ink:#101820;        /* Gruppo - Black 6 */
+    --ink-soft:#39424C;   /* testo corpo su fondi chiari (contrasto AA) */
     --sole:#FECA00;       /* Gruppo - giallo / energia solare */
+    --sole-scuro:#E0A800; /* giallo per dettagli su fondo chiaro */
     --grigio:#EEF1F3;     /* Gruppo - grigio fondo */
     --linea:#D7DEE6;
     --muted:#5B6670;
     --white:#fff;
     --maxw:1180px;
     --r:14px;
+    /* motion */
+    --e-quart:cubic-bezier(.25,1,.5,1);
+    --e-expo:cubic-bezier(.16,1,.3,1);
+    /* z-index scale (semantica) */
+    --z-base:1;
+    --z-header:100;
+    --z-overlay:200;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;overflow-x:clip}
+  html{scroll-behavior:smooth;overflow-x:clip;scroll-padding-top:88px}
   body{
     margin:0;font-family:"Archivo",system-ui,Arial,sans-serif;color:var(--ink);
     background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  h1,h2,h3{line-height:1.05;margin:0;font-weight:900;letter-spacing:-.01em}
-  .display{font-weight:900;letter-spacing:.01em;text-transform:uppercase}
+  h1,h2,h3{line-height:1.05;margin:0;font-weight:900;letter-spacing:-.01em;text-wrap:balance}
+  .display{font-stretch:125%;font-weight:800;letter-spacing:.005em;text-transform:uppercase}
   p{margin:0}
   a{color:inherit}
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:var(--blu)}
+
+  /* accessibilità: focus da tastiera sempre visibile */
+  :focus-visible{outline:3px solid var(--blu);outline-offset:3px;border-radius:6px}
+  .hero :focus-visible,.problema :focus-visible,.numeri :focus-visible{outline-color:var(--sole)}
+
+  /* eyebrow come sistema di marca: tacca solare + testo tracciato */
+  .eyebrow{display:inline-flex;align-items:center;gap:.7em;font-weight:800;
+    text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:var(--blu)}
+  .eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--sole-scuro);flex:none}
+  .problema .eyebrow::before,.numeri .eyebrow::before,.hero .eyebrow::before{background:var(--sole)}
+  .agita .eyebrow::before{background:var(--ink)}
+
   .btn{display:inline-flex;align-items:center;gap:.5em;font-weight:800;font-size:1rem;
     padding:15px 26px;border-radius:999px;text-decoration:none;border:2px solid transparent;cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease}
-  .btn:hover{transform:translateY(-2px)}
+    transition:transform .35s var(--e-expo), box-shadow .35s var(--e-expo), background .2s ease}
+  .btn:hover{transform:translateY(-3px)}
+  .btn:active{transform:translateY(-1px)}
   .btn--sun{background:var(--sole);color:var(--ink);box-shadow:0 8px 24px rgba(254,202,0,.35)}
-  .btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.5)}
+  .btn--sun:hover{box-shadow:0 14px 34px rgba(254,202,0,.45)}
+  .btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.55)}
+  .btn--ghost:hover{background:rgba(255,255,255,.08);border-color:#fff}
   .btn--ghost.dark{color:var(--ink);border-color:var(--ink)}
-  .btn--blu{background:var(--blu);color:#fff}
+  .btn--blu{background:var(--blu);color:#fff;box-shadow:0 8px 24px rgba(0,61,124,.25)}
+  .btn--blu:hover{box-shadow:0 14px 34px rgba(0,61,124,.34)}
+  .btn .arw{transition:transform .35s var(--e-expo)}
+  .btn:hover .arw{transform:translateX(4px)}
 
   /* ---------- Header ---------- */
-  .hdr{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
-    backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+  .hdr{position:sticky;top:0;z-index:var(--z-header);background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
   .hdr__in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;max-width:var(--maxw);margin:0 auto}
   .cobrand{display:flex;align-items:center;gap:14px}
   .cobrand img.maurelli{height:30px;width:auto}
@@ -55,42 +83,42 @@
   .hdr__cta{display:flex;align-items:center;gap:10px}
 
   /* ---------- Hero ---------- */
-  .hero{position:relative;color:#fff;background:var(--blu-scuro);overflow:hidden}
-  .hero__media{position:absolute;inset:0}
-  .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
+  .hero{position:relative;color:#fff;background:var(--blu-notte);overflow:hidden;isolation:isolate}
+  .hero__media{position:absolute;inset:0;z-index:1}
+  .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--e-quart)}
   .hero__slide.is-active{opacity:1}
   .hero__slide img{width:100%;height:100%;object-fit:cover;object-position:center 42%;
-    transform:scale(1.06);transition:transform 7s ease-out}
+    transform:scale(1.08);transition:transform 8s ease-out}
   .hero__slide.is-active img{transform:scale(1)}
   .hero__media::after{content:"";position:absolute;inset:0;z-index:2;
-    background:linear-gradient(105deg,rgba(0,25,55,.92) 0%,rgba(0,40,80,.78) 38%,rgba(0,40,80,.30) 72%,rgba(0,40,80,.05) 100%)}
-  .hero__dots{position:absolute;z-index:3;left:0;right:0;bottom:22px;display:flex;gap:10px;
-    justify-content:center}
+    background:linear-gradient(105deg,rgba(0,20,45,.94) 0%,rgba(0,30,62,.82) 40%,rgba(0,40,80,.34) 74%,rgba(0,40,80,.06) 100%)}
+  .hero__dots{position:absolute;z-index:4;left:0;right:0;bottom:22px;display:flex;gap:10px;justify-content:center}
   .hero__dots button{width:30px;height:4px;border:0;padding:0;border-radius:99px;cursor:pointer;
-    background:rgba(255,255,255,.35);transition:background .3s}
-  .hero__dots button.is-active{background:var(--sole)}
-  @media (prefers-reduced-motion:reduce){
-    .hero__slide,.hero__slide img{transition:none}
-    .hero__slide img{transform:none}
-  }
-  .sun{position:absolute;border-radius:50%;
-    background:radial-gradient(circle,rgba(254,202,0,.95) 0%,rgba(254,202,0,.55) 35%,rgba(254,202,0,0) 70%);
-    filter:blur(2px);pointer-events:none}
-  .hero .sun{width:340px;height:340px;top:-90px;right:-40px;z-index:1}
-  .hero__in{position:relative;z-index:2;padding:96px 0 104px;max-width:760px}
-  .hero h1{font-size:clamp(2.3rem,5.4vw,4rem);margin:18px 0 0}
-  .hero h1 em{font-style:normal;color:var(--sole)}
-  .hero__sub{margin-top:22px;font-size:1.18rem;max-width:600px;color:#dce6f1}
+    background:rgba(255,255,255,.35);transition:background .3s, width .3s var(--e-expo)}
+  .hero__dots button.is-active{background:var(--sole);width:44px}
+  /* sole: motivo firma */
+  .sun{position:absolute;border-radius:50%;z-index:2;pointer-events:none;
+    background:radial-gradient(circle,rgba(254,202,0,.95) 0%,rgba(254,202,0,.45) 34%,rgba(254,202,0,0) 70%);
+    filter:blur(2px)}
+  .hero .sun{width:360px;height:360px;top:-96px;right:-30px}
+  .hero .sun::after{content:"";position:absolute;inset:-40%;border-radius:50%;
+    background:conic-gradient(from 0deg,transparent 0 8deg,rgba(254,202,0,.10) 8deg 12deg,transparent 12deg 30deg);opacity:.7}
+  .hero__in{position:relative;z-index:3;padding:clamp(84px,11vw,120px) 0 clamp(92px,11vw,116px);max-width:780px}
+  .hero h1{font-size:clamp(2.35rem,5.4vw,4.15rem);margin:20px 0 0}
+  .hero h1 em{font-style:normal;color:var(--sole);position:relative}
+  .hero__sub{margin-top:22px;font-size:1.18rem;max-width:600px;color:#e3ecf6;text-wrap:pretty}
   .hero__cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
-  .hero__strip{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.16);
+  .hero__strip{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.18);
     display:grid;grid-template-columns:repeat(3,1fr)}
-  .hero__strip div{padding:18px 0}
-  .hero__strip b{display:block;font-size:1.5rem;font-weight:900;color:var(--sole)}
-  .hero__strip span{font-size:.82rem;color:#bcccdd;text-transform:uppercase;letter-spacing:.06em}
+  .hero__strip div{padding:20px 0;position:relative}
+  .hero__strip div+div{padding-left:26px}
+  .hero__strip div+div::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:1px;background:rgba(255,255,255,.16)}
+  .hero__strip b{display:block;font-size:1.55rem;font-weight:900;color:var(--sole)}
+  .hero__strip span{font-size:.82rem;color:#c3d2e3;text-transform:uppercase;letter-spacing:.06em}
 
   /* ---------- Sezioni generiche ---------- */
-  section{padding:84px 0}
-  .lead{font-size:1.12rem;color:var(--muted);max-width:620px;margin-top:16px}
+  section{padding:clamp(64px,8.5vw,104px) 0}
+  .lead{font-size:1.12rem;color:var(--ink-soft);max-width:62ch;margin-top:16px;text-wrap:pretty}
   .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.6rem)}
 
   /* ---------- FAQ ---------- */
@@ -98,125 +126,174 @@
   .faq .sec-head{text-align:center;max-width:680px;margin:0 auto}
   .faq .lead{margin:16px auto 0}
   .faq__list{max-width:820px;margin:42px auto 0;display:flex;flex-direction:column;gap:12px}
-  .faq__item{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden}
+  .faq__item{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden;
+    transition:border-color .25s ease, box-shadow .25s ease}
+  .faq__item:hover{border-color:#b9c6d4;box-shadow:0 8px 24px rgba(16,24,32,.06)}
+  .faq__item[open]{border-color:var(--blu);box-shadow:0 10px 30px rgba(0,61,124,.08)}
   .faq__item summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:800;
     font-size:1.04rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
   .faq__item summary::-webkit-details-marker{display:none}
-  .faq__item summary::after{content:"+";font-size:1.6rem;font-weight:700;line-height:1;
-    color:var(--blu);flex:none;transition:transform .2s ease}
+  .faq__item summary::after{content:"";flex:none;width:22px;height:22px;
+    background:
+      linear-gradient(var(--blu),var(--blu)) center/2px 100% no-repeat,
+      linear-gradient(var(--blu),var(--blu)) center/100% 2px no-repeat;
+    transition:transform .28s var(--e-expo)}
   .faq__item[open] summary{color:var(--blu)}
-  .faq__item[open] summary::after{transform:rotate(45deg)}
-  .faq__item .a{padding:0 24px 20px;color:#283039;font-size:.98rem;line-height:1.6}
-  .faq__cta{max-width:820px;margin:26px auto 0;text-align:center;color:var(--muted);font-size:.96rem}
-  .faq__cta a{color:var(--blu);font-weight:800;text-decoration:none}
+  .faq__item[open] summary::after{transform:rotate(135deg)}
+  .faq__item .a{padding:0 24px 20px;color:var(--ink-soft);font-size:.98rem;line-height:1.6}
+  .faq__cta{max-width:820px;margin:26px auto 0;text-align:center;color:var(--ink-soft);font-size:.96rem}
+  .faq__cta a{color:var(--blu);font-weight:800;text-decoration:none;border-bottom:2px solid transparent;transition:border-color .2s}
+  .faq__cta a:hover{border-color:var(--blu)}
 
   /* ---------- Problema ---------- */
   .problema{background:var(--ink);color:#fff}
   .problema .eyebrow{color:var(--sole)}
   .problema h2{font-size:clamp(1.7rem,3.6vw,2.6rem);max-width:680px}
   .stat-grid{margin-top:46px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
-  .stats{display:grid;gap:22px}
-  .stat{border-left:4px solid var(--sole);padding:6px 0 6px 20px}
-  .stat b{font-size:2.6rem;font-weight:900;display:block;letter-spacing:-.02em}
-  .stat span{color:#9fb0c2}
+  .stats{display:grid;gap:14px}
+  .stat{padding:16px 20px;border-radius:12px;background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);display:flex;align-items:baseline;gap:16px}
+  .stat b{font-size:2.4rem;font-weight:900;letter-spacing:-.02em;color:var(--sole);flex:none;min-width:4.6ch}
+  .stat span{color:#c2cfdb}
   /* gauge batteria */
-  .gauge{background:var(--blu-scuro);border-radius:var(--r);padding:28px}
-  .gauge h3{font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:#cdd9e6;font-weight:800}
+  .gauge{background:var(--blu-scuro);border-radius:var(--r);padding:28px;border:1px solid rgba(255,255,255,.06)}
+  .gauge h3{font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:#d6e1ee;font-weight:800}
   .bar{margin-top:16px}
-  .bar small{display:flex;justify-content:space-between;font-size:.82rem;color:#aebfd0;margin-bottom:6px}
+  .bar small{display:flex;justify-content:space-between;font-size:.82rem;color:#bccdde;margin-bottom:6px}
   .track{height:18px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
   .fill{height:100%;border-radius:999px}
-  .fill.bad{width:20%;background:#e0563b}
+  .fill.bad{width:20%;background:#e0563b}   /* default = valore finale (robusto) */
   .fill.good{width:4%;background:var(--sole)}
-  .gauge p{margin-top:16px;font-size:.92rem;color:#aebfd0}
+  .gauge p{margin-top:16px;font-size:.92rem;color:#bccdde}
 
   /* ---------- Agitazione ---------- */
-  .agita{background:var(--sole);color:var(--ink)}
-  .agita .wrap{display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
+  .agita{background:var(--sole);color:var(--ink);position:relative;overflow:hidden}
+  .agita::before{content:"";position:absolute;top:-30%;right:-8%;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 62%);pointer-events:none}
+  .agita .wrap{position:relative;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
   .agita__txt{flex:1 1 460px}
   .agita h2{font-size:clamp(1.6rem,3.2vw,2.3rem);max-width:680px}
   .agita p{margin-top:14px;max-width:620px;font-weight:500}
   .agita__txt .btn{margin-top:26px}
   .agita__img{flex:1 1 360px;max-width:440px}
   .agita__img img{width:100%;height:260px;object-fit:cover;border-radius:var(--r);display:block;
-    box-shadow:0 18px 44px rgba(16,24,32,.22)}
+    box-shadow:0 22px 50px rgba(16,24,32,.28)}
 
   /* ---------- Soluzione ---------- */
   .feat{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .card{background:var(--white);border:1px solid var(--linea);border-radius:var(--r);padding:28px;
-    transition:transform .15s ease,box-shadow .15s ease}
-  .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(16,24,32,.08)}
-  .card .ic{width:46px;height:46px;border-radius:12px;background:var(--grigio);display:grid;place-items:center;margin-bottom:16px}
+    transition:transform .4s var(--e-expo),box-shadow .4s var(--e-expo),border-color .3s ease}
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(16,24,32,.10);border-color:#c6d2df}
+  .card .ic{width:52px;height:52px;border-radius:14px;background:var(--grigio);color:var(--blu);
+    display:grid;place-items:center;margin-bottom:18px;transition:background .3s ease}
+  .card:hover .ic{background:#e3edf7}
+  .card .ic svg{width:26px;height:26px}
+  .card .ic .g{stroke:var(--sole-scuro)}
   .card h3{font-size:1.16rem}
-  .card p{color:var(--muted);margin-top:8px;font-size:.96rem}
+  .card p{color:var(--ink-soft);margin-top:8px;font-size:.96rem}
 
   /* ---------- Kit prodotti ---------- */
   .prodotti{background:var(--grigio)}
   .panels{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .panel{background:#fff;border-radius:var(--r);border:1px solid var(--linea);padding:26px;display:flex;gap:22px;align-items:center}
+  .panel{background:#fff;border-radius:var(--r);border:1px solid var(--linea);padding:26px;display:flex;gap:22px;align-items:center;
+    transition:transform .4s var(--e-expo),box-shadow .4s var(--e-expo)}
+  .panel:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(16,24,32,.09)}
   .panel img{width:130px;height:130px;object-fit:contain;flex:none}
   .panel .code{font-weight:900;font-size:1.35rem;color:var(--blu)}
-  .panel ul{margin:10px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.92rem}
+  .panel ul{margin:10px 0 0;padding:0;list-style:none;color:var(--ink-soft);font-size:.92rem}
   .panel li{padding:3px 0;display:flex;gap:8px}
-  .panel li::before{content:"—";color:var(--sole);font-weight:900}
+  .panel li::before{content:"—";color:var(--sole-scuro);font-weight:900}
   .config{margin-top:24px;background:var(--blu);color:#fff;border-radius:var(--r);padding:24px 28px;
     display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
   .config b{color:var(--sole)}
 
   /* ---------- Kit offerta ---------- */
   .kits{margin-top:46px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .kit{border:2px solid var(--linea);border-radius:var(--r);padding:32px;display:flex;flex-direction:column}
-  .kit:hover{border-color:var(--blu)}
+  .kit{border:2px solid var(--linea);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;min-width:0;
+    transition:border-color .3s ease,transform .4s var(--e-expo),box-shadow .4s var(--e-expo)}
+  .kit:hover{border-color:var(--blu);transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,61,124,.10)}
   .kit h3{font-size:1.5rem}
-  .kit .desc{color:var(--muted);margin-top:10px;flex:1}
+  .kit .desc{color:var(--ink-soft);margin-top:10px;flex:1}
   .kit .btn{margin-top:26px;align-self:flex-start;white-space:nowrap}
   .kit .price{margin:22px 0;font-weight:900;font-size:1.05rem;color:var(--muted);
     background:var(--grigio);border-radius:10px;padding:12px 16px;letter-spacing:.02em}
   .kit .price em{font-style:normal;color:var(--blu)}
 
   /* ---------- Numeri ---------- */
-  .numeri{background:var(--blu-scuro);color:#fff;text-align:center}
+  .numeri{background:var(--blu-scuro);color:#fff;text-align:center;position:relative;overflow:hidden}
+  .numeri::before{content:"";position:absolute;left:50%;top:-120px;transform:translateX(-50%);
+    width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(254,202,0,.14) 0%,rgba(254,202,0,0) 62%);pointer-events:none}
+  .numeri .wrap{position:relative}
   .numeri .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:36px}
-  .numeri b{display:block;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:900;color:var(--sole)}
-  .numeri span{color:#bcccdd;text-transform:uppercase;letter-spacing:.08em;font-size:.86rem}
+  .numeri b{display:block;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:900;color:var(--sole);
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .numeri span{color:#c3d2e3;text-transform:uppercase;letter-spacing:.08em;font-size:.86rem}
 
   /* ---------- Form ---------- */
   .contatti{background:var(--grigio)}
   .form-grid{margin-top:40px;display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
-  .form-card{background:#fff;border-radius:var(--r);border:1px solid var(--linea);padding:32px}
+  .form-card{background:#fff;border-radius:var(--r);border:1px solid var(--linea);padding:32px;
+    box-shadow:0 18px 50px rgba(16,24,32,.07)}
   .field{margin-bottom:16px}
   .field label{display:block;font-weight:700;font-size:.86rem;margin-bottom:6px}
   .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--linea);
-    border-radius:10px;font:inherit;background:#fff}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:3px solid rgba(0,61,124,.25);border-color:var(--blu)}
+    border-radius:10px;font:inherit;background:#fff;transition:border-color .2s, box-shadow .2s}
+  .field input:hover,.field select:hover,.field textarea:hover{border-color:#b9c6d4}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blu);
+    box-shadow:0 0 0 3px rgba(0,61,124,.18)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .consents{display:flex;flex-direction:column;gap:12px;margin-top:6px}
-  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--muted)}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--ink-soft)}
   .consent input{width:auto;margin-top:3px;flex:none}
   .consent a{color:var(--blu);font-weight:700;text-decoration:underline}
   .form-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
-  .note{font-size:.82rem;color:var(--muted)}
-  .wa{display:inline-flex;align-items:center;gap:.5em;font-weight:800;color:#128C4A;text-decoration:none}
+  .note{font-size:.82rem;color:var(--ink-soft)}
+  .wa{display:inline-flex;align-items:center;gap:.5em;font-weight:800;color:#0B7A3B;text-decoration:none;
+    border-bottom:2px solid transparent;transition:border-color .2s}
+  .wa:hover{border-color:#0B7A3B}
   .sidekick h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
   .sidekick ul{list-style:none;padding:0;margin:24px 0 0}
-  .sidekick li{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--linea);font-weight:600}
-  .sidekick li span{color:var(--blu);font-weight:900}
+  .sidekick li{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--linea);font-weight:600;align-items:baseline}
+  .sidekick li span{color:var(--white);background:var(--blu);font-weight:900;font-size:.82rem;
+    width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none}
 
   /* ---------- Footer ---------- */
   .ft{background:var(--ink);color:#cdd6df;padding:48px 0}
   .ft__in{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
   .ft .cobrand img.maurelli{height:30px;filter:brightness(0) invert(1)}
-  .ft small{color:#7e8a96;font-size:.8rem}
+  .ft small{color:#8a95a1;font-size:.8rem}
 
-  /* reveal */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
+  /* ---------- Motion: entrata hero (parte al load) ---------- */
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes sunfloat{0%,100%{transform:translateY(0) scale(1);opacity:.95}50%{transform:translateY(10px) scale(1.04);opacity:1}}
+  .rise{opacity:1}
+  @media (prefers-reduced-motion:no-preference){
+    .rise{opacity:0;animation:rise .9s var(--e-expo) forwards}
+    .rise.d1{animation-delay:.08s}
+    .rise.d2{animation-delay:.18s}
+    .rise.d3{animation-delay:.30s}
+    .rise.d4{animation-delay:.44s}
+    .rise.d5{animation-delay:.58s}
+    .hero .sun{animation:sunfloat 9s ease-in-out infinite}
+  }
+
+  /* ---------- Motion: reveal allo scroll (progressivo, non blocca il no-JS) ---------- */
+  .js .reveal{opacity:0;transform:translateY(22px);
+    transition:opacity .7s var(--e-quart),transform .7s var(--e-quart)}
+  .js .reveal.in{opacity:1;transform:none}
+  /* barre gauge: solo con JS partono da 0 e crescono alla reveal;
+     senza .in tornano al valore finale del default → mai bloccate a 0 */
+  .js .gauge .fill{transition:width 1.3s var(--e-expo) .15s}
+  .js .gauge:not(.in) .fill{width:0}
 
   @media (max-width:860px){
     .stat-grid,.feat,.panels,.kits,.form-grid,.numeri .grid{grid-template-columns:1fr}
-    .hero__in{padding:72px 0 72px}
+    .hero__in{padding:76px 0 76px}
     .hdr__cta .btn{display:none}
     .two{grid-template-columns:1fr}
+    /* i CTA lunghi dei kit possono andare a capo: niente pressione di larghezza */
+    .kit .btn{white-space:normal;width:100%;justify-content:center;text-align:center}
   }
   /* ---- Mobile: co-brand lockup deve stare nel viewport ---- */
   @media (max-width:560px){
@@ -225,24 +302,30 @@
     .cobrand img.maurelli,
     .ft .cobrand img.maurelli{height:22px}
     .wrap{padding:0 18px}
-    section{padding:60px 0}
     .hero__sub{font-size:1.04rem}
-    .hero__strip b{font-size:1.22rem}
+    .hero__strip b{font-size:1.28rem}
     .hero__strip span{font-size:.72rem}
+    .hero__strip div+div{padding-left:16px}
+    .stat b{font-size:2rem}
     .ft__in{gap:18px}
     .ft .cobrand .sep{height:20px}
   }
   @media (prefers-reduced-motion:reduce){
     *{scroll-behavior:auto}
-    .reveal{opacity:1;transform:none;transition:none}
-    .btn:hover,.card:hover{transform:none}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .js .gauge .fill{transition:none}
+    .js .gauge:not(.in) .fill.bad{width:20%}
+    .js .gauge:not(.in) .fill.good{width:4%}
+    .hero__slide img{transition:none;transform:none}
+    .btn:hover,.card:hover,.panel:hover,.kit:hover{transform:none}
   }
   @media print{
     body{background:#fff}
-    .reveal{opacity:1!important;transform:none!important}
+    .js .reveal,.rise{opacity:1!important;transform:none!important;animation:none!important}
     .faq__item .a{display:block!important}
     section{padding:40px 0}
     .card,.panel,.kit,.faq__item{break-inside:avoid}
+    .js .gauge .fill.bad{width:20%}.js .gauge .fill.good{width:4%}
   }
 </style>
 </head>
@@ -275,17 +358,17 @@
   <span class="sun"></span>
   <div class="wrap">
     <div class="hero__in">
-      <div class="eyebrow" style="color:var(--sole)">Fotovoltaico per veicoli commerciali e flotte</div>
-      <h1 class="display">Il sole ricarica la tua flotta.<br><em>Tu continui a lavorare.</em></h1>
-      <p class="hero__sub">Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e configura il kit giusto per il tuo modello di veicolo: meno fermi, meno diesel, batterie che durano anni.</p>
-      <div class="hero__cta">
-        <a class="btn btn--sun" href="#contatti">Richiedi una consulenza →</a>
+      <div class="eyebrow rise d1" style="color:var(--sole)">Fotovoltaico per veicoli commerciali e flotte</div>
+      <h1 class="display rise d2">Il sole ricarica la tua flotta.<br><em>Tu continui a lavorare.</em></h1>
+      <p class="hero__sub rise d3">Pannelli solari flessibili per cabina, semirimorchio e autobus. Maurelli analizza i consumi e configura il kit giusto per il tuo modello di veicolo: meno fermi, meno diesel, batterie che durano anni.</p>
+      <div class="hero__cta rise d4">
+        <a class="btn btn--sun" href="#contatti">Richiedi una consulenza <span class="arw">→</span></a>
         <a class="btn btn--ghost" href="#kit">Scopri i kit</a>
       </div>
     </div>
   </div>
   <div class="wrap">
-    <div class="hero__strip">
+    <div class="hero__strip rise d5">
       <div><b>6–12 mesi</b><span>Ritorno investimento</span></div>
       <div><b>fino a 98%</b><span>Efficienza regolatore MPPT</span></div>
       <div><b>5 anni</b><span>Garanzia sui componenti</span></div>
@@ -300,11 +383,11 @@
     <h2 class="display" style="margin-top:12px">Basta pagare per far girare il motore al minimo.</h2>
     <div class="stat-grid">
       <div class="stats">
-        <div class="stat"><b>576 L</b><span>di diesel in più all'anno, per tenere il motore al minimo come generatore.</span></div>
-        <div class="stat"><b>979 €</b><span>di costo extra all'anno. Per un solo veicolo.</span></div>
-        <div class="stat"><b>1.526 kg</b><span>di CO₂ emessa in atmosfera ogni anno, per veicolo.</span></div>
+        <div class="stat reveal"><b>576 L</b><span>di diesel in più all'anno, per tenere il motore al minimo come generatore.</span></div>
+        <div class="stat reveal"><b>979 €</b><span>di costo extra all'anno. Per un solo veicolo.</span></div>
+        <div class="stat reveal"><b>1.526 kg</b><span>di CO₂ emessa in atmosfera ogni anno, per veicolo.</span></div>
       </div>
-      <div class="gauge">
+      <div class="gauge reveal">
         <h3>Batterie in bassa tensione</h3>
         <div class="bar">
           <small><span>Senza fotovoltaico</span><span>20%</span></small>
@@ -327,7 +410,7 @@
       <div class="eyebrow" style="color:var(--ink)">Proprio adesso</div>
       <h2 class="display" style="margin-top:10px">Con il caldo la batteria soffre. E ogni fermo pesa il doppio.</h2>
       <p>Con l'estate aumentano soste sotto il sole, climatizzazione e impianti di bordo. Le batterie vengono stressate al massimo proprio nel periodo di maggior lavoro.</p>
-      <a class="btn btn--blu" href="#kit">Scopri i kit</a>
+      <a class="btn btn--blu" href="#kit">Scopri i kit <span class="arw">→</span></a>
     </div>
     <div class="agita__img">
       <img src="assets/hero-3.jpg" alt="Monitor di carica della batteria sul cruscotto del veicolo">
@@ -345,17 +428,32 @@
     </div>
     <div class="feat">
       <div class="card reveal">
-        <div class="ic">☀️</div>
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle class="g" cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.2v2.4M12 19.4v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.2 12h2.4M19.4 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>
+          </svg>
+        </div>
         <h3>Pannelli ultraleggeri</h3>
         <p>Moduli monocristallini spessi 3 mm, flessibili fino a 30°, autoadesivi. Fino all'82% più leggeri dei pannelli tradizionali.</p>
       </div>
       <div class="card reveal">
-        <div class="ic">⚡</div>
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path class="g" d="M13 2.5 5 13.5h5.2l-1 8 8-11.2H12z" fill="rgba(224,168,0,.14)"/>
+          </svg>
+        </div>
         <h3>Regolatore MPPT</h3>
         <p>Tecnologia MPPT con efficienza fino al 98%, compatibile piombo-acido e litio. Protezione IP68 contro acqua, polvere e vibrazioni.</p>
       </div>
       <div class="card reveal">
-        <div class="ic">🔌</div>
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2.5v4.5M15 2.5v4.5"/>
+            <path d="M6 7h12v3.2a6 6 0 0 1-12 0z"/>
+            <path class="g" d="M12 16.2V22"/>
+          </svg>
+        </div>
         <h3>Plug-and-play certificato</h3>
         <p>Cablaggio coordinato e connettori impermeabili, pronti all'uso. 5 anni di garanzia su tutti i componenti.</p>
       </div>
@@ -394,7 +492,7 @@
         </div>
       </div>
     </div>
-    <div class="config">
+    <div class="config reveal">
       <span>Configurabili in base al veicolo: <b>da 110 Wp fino a 330 Wp</b>, con regolatore MPPT abbinato.</span>
     </div>
   </div>
@@ -412,17 +510,17 @@
       <div class="kit reveal">
         <h3>Kit Cabina</h3>
         <p class="desc">Per i servizi di bordo e il comfort dell'autista, senza scaricare la batteria di avviamento.</p>
-        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Cabina →</a>
+        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Cabina <span class="arw">→</span></a>
       </div>
       <div class="kit reveal">
         <h3>Kit Semirimorchio</h3>
         <p class="desc">Per sponde idrauliche, martinetti elettrici e impianti del rimorchio che drenano la batteria. La potenza dipende dal veicolo.</p>
-        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Semirimorchio →</a>
+        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Semirimorchio <span class="arw">→</span></a>
       </div>
       <div class="kit reveal">
         <h3>Kit Autobus</h3>
         <p class="desc">Per climatizzazione, servizi passeggeri e impianti di bordo dei bus, con potenza totale fino a <b>660&nbsp;Wp</b>.</p>
-        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Autobus →</a>
+        <a class="btn btn--sun" href="#contatti">Richiedi il Kit Autobus <span class="arw">→</span></a>
       </div>
     </div>
   </div>
@@ -431,13 +529,13 @@
 <!-- NUMERI -->
 <section class="numeri">
   <div class="wrap">
-    <div class="eyebrow" style="color:var(--sole)">Tecnologia di primo livello</div>
+    <div class="eyebrow" style="color:var(--sole);justify-content:center">Tecnologia di primo livello</div>
     <h2 class="display" style="margin-top:12px">Esperienza che si misura.</h2>
-    <p class="lead" style="margin:16px auto 0;color:#bcccdd">Selezioniamo per la tua flotta la tecnologia di uno dei principali produttori mondiali di fotovoltaico per veicoli. Numeri che parlano da soli.</p>
+    <p class="lead" style="margin:16px auto 0;color:#c3d2e3">Selezioniamo per la tua flotta la tecnologia di uno dei principali produttori mondiali di fotovoltaico per veicoli. Numeri che parlano da soli.</p>
     <div class="grid">
-      <div><b>26</b><span>anni nelle energie alternative</span></div>
-      <div><b>1.000.000+</b><span>pannelli prodotti</span></div>
-      <div><b>300.000+</b><span>veicoli equipaggiati</span></div>
+      <div><b data-count="26">26</b><span>anni nelle energie alternative</span></div>
+      <div><b data-count="1000000" data-suffix="+">1.000.000+</b><span>pannelli prodotti</span></div>
+      <div><b data-count="300000" data-suffix="+">300.000+</b><span>veicoli equipaggiati</span></div>
     </div>
   </div>
 </section>
@@ -451,9 +549,9 @@
         <h2 class="display" style="margin-top:12px">Quanta potenza serve alla tua flotta?</h2>
         <p class="lead">Dicci quanti veicoli e quale modello: analizziamo i consumi e dimensioniamo il kit giusto per il tuo mezzo.</p>
         <ul>
-          <li><span>01</span> Analisi dei consumi e del modello di veicolo</li>
-          <li><span>02</span> Dimensionamento del kit (110–660 Wp)</li>
-          <li><span>03</span> Preventivo su misura entro 24 ore</li>
+          <li><span>1</span> Analisi dei consumi e del modello di veicolo</li>
+          <li><span>2</span> Dimensionamento del kit (110–660 Wp)</li>
+          <li><span>3</span> Preventivo su misura entro 24 ore</li>
         </ul>
       </div>
       <div class="form-card">
@@ -496,7 +594,7 @@
             <label class="consent"><input type="checkbox"> Dichiaro di voler prestare il mio consenso per le attività finalizzate alla profilazione.</label>
           </div>
           <div class="form-actions" style="margin-top:18px">
-            <button class="btn btn--blu" type="submit">Scrivi a un commerciale →</button>
+            <button class="btn btn--blu" type="submit">Scrivi a un commerciale <span class="arw">→</span></button>
             <a class="wa" href="https://wa.me/393472432775?text=*Pannelli%20Solari*%3A%20Dicci%20quanti%20veicoli%20e%20quale%20modello%3A%20analizziamo%20i%20consumi%20e%20dimensioniamo%20il%20kit%20giusto%20per%20il%20tuo%20mezzo.">⊜ Scrivici su WhatsApp →</a>
           </div>
           <p class="note" style="margin-top:12px">Risposta commerciale entro 24 ore lavorative.</p>
@@ -510,7 +608,7 @@
 <section class="faq" id="faq">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Domande frequenti</div>
+      <div class="eyebrow" style="justify-content:center">Domande frequenti</div>
       <h2 class="display" style="margin-top:12px">Tutto quello che vuoi sapere</h2>
       <p class="lead">Le risposte alle domande più comuni dei gestori di flotta. Non trovi la tua? Scrivici: rispondiamo entro 24 ore lavorative.</p>
     </div>
@@ -577,9 +675,48 @@
 </footer>
 
 <script>
-  // reveal on scroll
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // JS attivo: abilita gli stati "reveal" (senza JS i contenuti restano visibili)
+  document.documentElement.classList.add('js');
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // reveal on scroll (progressivo). Se IntersectionObserver non è disponibile
+  // o non scatta (tab in background, renderer headless), un failsafe mostra
+  // comunque i contenuti: la pagina non resta mai "vuota".
+  const revealEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(el=>io.observe(el));
+    // failsafe: dopo il load, tutto ciò che è già a schermo viene rivelato subito;
+    // il resto ha una rete di sicurezza a 3s in caso l'observer non parta.
+    addEventListener('load',()=>revealEls.forEach(el=>{
+      if(el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
+    }));
+    setTimeout(()=>revealEls.forEach(el=>el.classList.add('in')),3000);
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+
+  // conteggio numeri (una volta, quando la sezione entra in vista)
+  (function(){
+    const nums=document.querySelectorAll('.numeri b[data-count]');
+    if(!nums.length) return;
+    if(reduceMotion) return; // lascia i valori finali già scritti
+    const fmt=new Intl.NumberFormat('it-IT');
+    function run(el){
+      const to=+el.dataset.count, suffix=el.dataset.suffix||'';
+      const dur=1400, t0=performance.now();
+      function step(t){
+        const p=Math.min(1,(t-t0)/dur);
+        const eased=1-Math.pow(1-p,3); // ease-out cubic
+        el.textContent=fmt.format(Math.round(to*eased))+suffix;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const nio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){run(e.target);nio.unobserve(e.target)}})},{threshold:.5});
+    nums.forEach(n=>nio.observe(n));
+  })();
 
   // mostra il modello del camion solo quando "Tipo di veicolo" = Camion
   (function(){
@@ -603,7 +740,7 @@
     const slides=root.querySelectorAll('.hero__slide');
     const dots=root.querySelectorAll('.hero__dots button');
     let i=0, timer=null;
-    const DELAY=5000;
+    const DELAY=5500;
     function show(n){
       i=(n+slides.length)%slides.length;
       slides.forEach((s,k)=>s.classList.toggle('is-active',k===i));
@@ -613,7 +750,7 @@
     function start(){ stop(); timer=setInterval(next,DELAY); }
     function stop(){ if(timer) clearInterval(timer); }
     dots.forEach((d,k)=>d.addEventListener('click',()=>{ show(k); start(); }));
-    if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches) start();
+    if(!reduceMotion) start();
   })();
 </script>
 </body>
